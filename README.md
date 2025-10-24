@@ -2,6 +2,8 @@
 
 A Python-based cryptocurrency trading agent that continuously feeds 1-minute market data and makes automated trading decisions using technical indicators.
 
+**🇺🇸 US Traders**: This system supports **Binance.US**! See the [Binance.US Quick Start Guide](BINANCE_US_GUIDE.md) for specific instructions.
+
 ## Features
 
 - Real-time 1-minute cryptocurrency data feed from multiple exchanges
@@ -48,11 +50,20 @@ python main.py
 Run with custom exchange and trading pair:
 
 ```bash
+# Use Binance International
 python main.py --exchange binance --symbol ETH/USDT --balance 10000 --interval 60
+
+# Use Binance US (for US-based users)
+python main.py --exchange binance.us --symbol BTC/USDT --balance 10000
+
+# Use other exchanges
+python main.py --exchange coinbase --symbol BTC/USD
+python main.py --exchange kraken --symbol ETH/USDT
 ```
 
 Parameters:
 - `--exchange`: Exchange name (default: binance)
+  - Supported: `binance`, `binance.us`, `coinbase`, `kraken`, `bitfinex`, etc.
 - `--symbol`: Trading pair (default: BTC/USDT)
 - `--balance`: Initial balance in quote currency (default: 10000)
 - `--interval`: Check interval in seconds (default: 60)
@@ -151,11 +162,21 @@ trading_agent/
 ## Supported Exchanges
 
 The system uses CCXT library and supports 100+ exchanges including:
-- Binance
-- Coinbase
-- Kraken
-- Bitfinex
+- **Binance** (International)
+- **Binance.US** (US-based users) - Use `--exchange binance.us`
+- **Coinbase Pro**
+- **Kraken**
+- **Bitfinex**
 - And many more...
+
+### Exchange-Specific Notes
+
+**Binance.US**: For US-based traders, use `binance.us` as the exchange parameter. Binance.US has different trading pairs and regulations compared to Binance International.
+
+```bash
+# Example for Binance.US
+python main.py --exchange binance.us --symbol BTC/USD
+```
 
 ## Warning
 

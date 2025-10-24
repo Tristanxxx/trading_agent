@@ -1,16 +1,14 @@
 """
-Configuration file for trading agent
-Adjust these parameters to customize the trading strategy
+Configuration example for Binance.US
+For US-based traders
 """
 
 # Exchange Configuration
-# Supported exchanges: 'binance', 'binance.us', 'coinbase', 'kraken', 'bitfinex', etc.
-# For US users, use 'binance.us' to comply with US regulations
-EXCHANGE = 'binance'  # Change to 'binance.us' for Binance US
-SYMBOL = 'BTC/USDT'   # Trading pair symbol
+EXCHANGE = 'binance.us'  # Binance US
+SYMBOL = 'BTC/USD'       # Note: Binance.US uses USD, not USDT for many pairs
 
 # Account Configuration
-INITIAL_BALANCE = 10000.0  # Starting balance in quote currency (USDT)
+INITIAL_BALANCE = 10000.0  # Starting balance in USD
 
 # Trading Loop Configuration
 CHECK_INTERVAL = 60  # Seconds between checks (60 = 1 minute)

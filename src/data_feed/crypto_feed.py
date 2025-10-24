@@ -9,6 +9,18 @@ import ccxt
 import pandas as pd
 
 
+# Exchange name mapping for user-friendly names
+EXCHANGE_MAPPING = {
+    'binance.us': 'binanceus',
+    'binanceus': 'binanceus',
+    'binance': 'binance',
+    'coinbase': 'coinbasepro',
+    'coinbasepro': 'coinbasepro',
+    'kraken': 'kraken',
+    'bitfinex': 'bitfinex',
+}
+
+
 class CryptoDataFeed:
     """Fetches and provides 1-minute cryptocurrency data"""
 
@@ -18,11 +30,27 @@ class CryptoDataFeed:
 
         Args:
             exchange_name: Name of the exchange (default: binance)
+                          Supports: binance, binance.us, coinbase, kraken, etc.
             symbol: Trading pair symbol (default: BTC/USDT)
         """
         self.exchange_name = exchange_name
         self.symbol = symbol
-        self.exchange = getattr(ccxt, exchange_name)()
+
+        # Map user-friendly name to CCXT exchange name
+        ccxt_exchange_name = EXCHANGE_MAPPING.get(
+            exchange_name.lower(),
+            exchange_name.lower()
+        )
+
+        try:
+            self.exchange = getattr(ccxt, ccxt_exchange_name)()
+            print(f"Connected to {ccxt_exchange_name} exchange")
+        except AttributeError:
+            raise ValueError(
+                f"Exchange '{exchange_name}' not supported. "
+                f"Available exchanges: {', '.join(EXCHANGE_MAPPING.keys())}"
+            )
+
         self.last_timestamp = None
 
     def fetch_latest_candle(self) -> Optional[Dict]:
